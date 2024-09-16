@@ -11,15 +11,20 @@
 <body>
     <section>
         <h1>Calculadora</h1>
-        <input id="numero1Input" type="text" placeholder="Número 1">
-        <input id="numero2Input" type="text" placeholder="Número 2">
+        <div class="campo">
+            <input id="numero1Input" type="text" placeholder="Número 1"
+            onkeyup="validarCampo(this)">
+        </div>
+        <div class="campo">
+            <input id="numero2Input" type="text" placeholder="Número 2">
+        </div>
         <select id="operacaoSelect">
             <option value="+">Soma</option>
             <option value="-">Subtração</option>
             <option value="*">Multiplicação</option>
             <option value="/">Divisão</option>
         </select>
-        <div>
+        <div class="botoes">
             <button onclick="calcular()">Calcular</button>
             <button id="limparButton">Limpar</button>
         </div>

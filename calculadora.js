@@ -42,6 +42,10 @@ function calcular() {
             break;
     }
 
+    resultado = + resultado.toFixed(2);
+    resultado = new Intl.NumberFormat('pt-BR').format(resultado);
+    // new Intl.DateTimeFormat('pt-BR');
+
     // alert('Resultado: ' + resultado);
     var paragrafoResultado = document.getElementById('resultado');
     var textoParagrafo = document.createTextNode('Resultado: ' + resultado);
@@ -62,6 +66,10 @@ function limpar() {
     numero1Input.value = '';
     numero2Input.value = '';
     operacaoSelect.value = '+';
+    limparResultado();
+}
+
+function limparResultado() {
     var paragrafoResultado = document.getElementById('resultado');
     if (paragrafoResultado) {
         // paragrafoResultado.remove()
@@ -72,6 +80,48 @@ function limpar() {
     }
 }
 
+function validarCampo(input) {
+    var valor = +input.value;
+    var numeroInvalido = isNaN(valor);
+
+    var div = input.parentElement;
+    var p = div.querySelector('p.valor-invalido');
+
+    if (numeroInvalido && !p) {
+        p = document.createElement('p');
+        var text = document.createTextNode('Valor inválido!');
+        p.appendChild(text);
+        p.classList.add('valor-invalido');
+        div.appendChild(p);
+        div.classList.add('campo-invalido');
+    } else if (!numeroInvalido && p) {
+        p.remove();
+        div.classList.remove('campo-invalido');
+    }
+
+}
+
 document.getElementById('limparButton').addEventListener(
     'click', limpar
 )
+
+numero2Input.addEventListener('keyup', function(evento) {
+    validarCampo(evento.target);
+})
+
+numero1Input.addEventListener('change', limparResultado);
+numero2Input.addEventListener('change', limparResultado);
+operacaoSelect.addEventListener('change', limparResultado);
+
+// numero2Input.addEventListener('change', function(evento) {
+//     console.log('change: ', evento);
+// });
+
+// numero2Input.addEventListener('blur', function(evento) {
+//     validarCampo(evento.target);
+// });
+
+
+// numero1Input.addEventListener('focusout', function() {
+//     console.log('focusout');
+// })
